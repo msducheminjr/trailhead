@@ -1,7 +1,105 @@
 @isTest
 public class TestDataFactory {
+    public static Case maintenanceRequestTriggerPositive(String caseType) {
+		return insertCaseStructure(caseType, 'New');
+    }
 
-    public static List<Speaker__c> createSpeakers(Integer numSpeakers) {
+    public static Case maintenanceRequestTriggerNegative() {
+		return insertCaseStructure('Other', 'New');
+    }
+
+    public static Case insertCaseStructure(String caseType, String caseStatus) {
+		// maintenance request of type Repair or Routine Maintenance
+		Vehicle__c veh = new Vehicle__c(Name='Vehicle');
+		insert veh;
+
+		List<Product2> equipItems = new List<Product2>();
+		Product2 shortSpan = new Product2(Name='Wiper', Current_Inventory__c=500, Cost__c=5.99, IsActive=true, Lifespan_Months__c=3, Maintenance_Cycle__c=90, Replacement_Part__c=true);
+		Product2 LongSpan = new Product2(Name='Motor', Current_Inventory__c=6, Cost__c=7999.99, IsActive=true, Lifespan_Months__c=240, Maintenance_Cycle__c=1461, Replacement_Part__c=true);
+		equipItems.add(shortSpan);
+		equipItems.add(longSpan);
+		insert equipItems;
+
+		Case mrCase = new Case(Type=caseType, Status=caseStatus, Origin='Web', Vehicle__c=veh.Id);
+		insert mrCase;
+
+		List<Work_Part__c> workParts = new List<Work_Part__c>();
+		workParts.add(new Work_Part__c(Equipment__c=shortSpan.Id, Maintenance_Request__c=mrCase.Id, Quantity__c=2));
+		workParts.add(new Work_Part__c(Equipment__c=longSpan.Id, Maintenance_Request__c=mrCase.Id, Quantity__c=1));
+		// two sets of equipment and work parts
+		insert workParts;
+
+		return mrCase;
+
+    }
+
+	public static List<Case> setupBulkTesting(Integer numCases) {
+		List<Product2> equipItems = new List<Product2>();
+		Product2 shortSpan = new Product2(Name='Wiper', Current_Inventory__c=500, Cost__c=5.99, IsActive=true, Lifespan_Months__c=3, Maintenance_Cycle__c=90, Replacement_Part__c=true);
+		Product2 LongSpan = new Product2(Name='Motor', Current_Inventory__c=6, Cost__c=7999.99, IsActive=true, Lifespan_Months__c=240, Maintenance_Cycle__c=1461, Replacement_Part__c=true);
+		equipItems.add(shortSpan);
+		equipItems.add(longSpan);
+		insert equipItems;
+
+		List<Vehicle__c> vehicles = new List<Vehicle__c>();
+		List<Case> cases = new List<Case>();
+		List<Work_Part__c> workParts = new List<Work_Part__c>();
+
+		// iterate through number of for each vehicle
+		for(Integer i = 0; i < numCases; i++) {
+			vehicles.add(new Vehicle__c(Name=('Vehicle' + i)));
+		}
+
+		insertBulkInBatches(vehicles);
+
+		// iterate through number of for each vehicle
+		// one third Repair, One Third Routine Maintenance One Third Other
+		for(Integer i = 0; i < numCases; i++) {
+			string caseType;
+			if (Math.mod(i,3) == 0) {
+				caseType = 'Repair';
+			} else if (Math.mod(i,3) == 1) {
+				caseType = 'Routine Maintenance';
+			} else {
+				caseType = 'Other';
+			}
+			cases.add(new Case(Type=caseType, Status='New', Origin='Web', Vehicle__c=vehicles[i].Id));
+		}
+
+		insertBulkInBatches(cases);
+
+		for (Case c : cases) {
+			workParts.add(new Work_Part__c(Equipment__c=shortSpan.Id, Maintenance_Request__c=c.Id, Quantity__c=2));
+			workParts.add(new Work_Part__c(Equipment__c=longSpan.Id, Maintenance_Request__c=c.Id, Quantity__c=1));
+		}
+
+		insertBulkInBatches(workParts);
+
+		return cases;
+	}
+
+	public static void insertBulkInBatches(List<sObject> recs) {
+		Integer recSize = recs.size();
+		List<sObject> currentBatch = new List<sObject>();
+		for (Integer i = 0; i < recSize; i ++) {
+			currentBatch.add(recs[i]);
+			if(Math.mod(i,200) == 0) {
+				insert currentBatch;
+				currentBatch = new List<sObject>();
+			}
+		}
+
+		if(currentBatch.size() > 0) {
+			insert currentBatch;
+		}
+	 }
+
+	 public static Product2 createEquipmentItem(String sku) {
+	 	Product2 item = new Product2(Name='Temp', Warehouse_SKU__c=sku);
+		insert item;
+		return item;
+	 }
+	     public static List<Speaker__c> createSpeakers(Integer numSpeakers) {
         List<Speaker__c> speakers = new List<Speaker__c>();
         for(Integer i=0; i<numSpeakers;i++) {
             speakers.add(generateSpeaker(i));
@@ -88,13 +186,13 @@ public class TestDataFactory {
 
     public static List<Account> createAccountsWithOpps(Integer numAccts, Integer numOppsPerAcct) {
         List<Account> accts = new List<Account>();
-        
+
         for(Integer i=0;i<numAccts;i++) {
             Account a = new Account(Name='TestAccount' + i);
             accts.add(a);
         }
         insert accts;
-        
+
         List<Opportunity> opps = new List<Opportunity>();
         for (Integer j=0;j<numAccts;j++) {
             Account acct = accts[j];
@@ -108,7 +206,7 @@ public class TestDataFactory {
         }
         // Insert all opportunities for all accounts.
         insert opps;
-        
+
         return accts;
     }
 
@@ -136,5 +234,4 @@ public class TestDataFactory {
 
         return accts;
     }
-
 }
