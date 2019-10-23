@@ -62,6 +62,24 @@
             ],
             "c/tile": [
                 "tile/tile.js"
+            ],
+            "c/bearList": [
+                "bearList/bearList.js"
+            ],
+            "c/bearMap": [
+                "bearMap/bearMap.js"
+            ],
+            "c/bearSupervisor": [
+                "bearSupervisor/bearSupervisor.js"
+            ],
+            "c/bearLocation": [
+                "bearLocation/bearLocation.js"
+            ],
+            "c/bearTile": [
+                "bearTile/bearTile.js"
+            ],
+            "c/helloWebComponent": [
+                "helloWebComponent/helloWebComponent.js"
             ]
         }
     },
