@@ -12,29 +12,24 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Contracted</fullName>
+                <fullName>Pre-Market</fullName>
                 <default>false</default>
-                <label>Contracted</label>
+                <label>Pre-Market</label>
             </value>
             <value>
-                <fullName>Pre Market</fullName>
+                <fullName>Listed</fullName>
                 <default>false</default>
-                <label>Pre Market</label>
+                <label>Listed</label>
             </value>
             <value>
-                <fullName>Available</fullName>
+                <fullName>Under Contract</fullName>
                 <default>false</default>
-                <label>Available</label>
+                <label>Under Contract</label>
             </value>
             <value>
-                <fullName>Under Agreement</fullName>
+                <fullName>Sold</fullName>
                 <default>false</default>
-                <label>Under Agreement</label>
-            </value>
-            <value>
-                <fullName>Closed</fullName>
-                <default>false</default>
-                <label>Closed</label>
+                <label>Sold</label>
             </value>
         </valueSetDefinition>
     </valueSet>

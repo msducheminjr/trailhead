@@ -154,12 +154,12 @@
     <enableStreamingApi>true</enableStreamingApi>
     <label>Favorite</label>
     <nameField>
-        <displayFormat>FA-{0000}</displayFormat>
+        <displayFormat>F-{00000000}</displayFormat>
         <label>Favorite Name</label>
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Favorites</pluralLabel>
     <searchLayouts/>
-    <sharingModel>ControlledByParent</sharingModel>
+    <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

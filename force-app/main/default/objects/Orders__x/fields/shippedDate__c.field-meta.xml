@@ -9,5 +9,6 @@
     <isSortingDisabled>false</isSortingDisabled>
     <label>shippedDate</label>
     <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
     <type>DateTime</type>
 </CustomField>
