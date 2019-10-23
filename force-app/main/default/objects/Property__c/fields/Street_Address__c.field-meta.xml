@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Street_Address__c</fullName>
+    <description>The street address of the property</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This is the street address of the property. Do not use a PO Box.</inlineHelpText>
+    <label>Street Address</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

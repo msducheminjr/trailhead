@@ -1,3 +1,5 @@
 <aura:application >
-	<c:myFirstComponent/>	
+    <c:accDisplay/>
+    <c:accEdit/>
+    <c:ldsDisplayRecord/>
 </aura:application>

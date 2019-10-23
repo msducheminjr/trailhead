@@ -1,0 +1,7 @@
+<aura:component >
+    <c:helloHeading/>
+	<p>Hello Lightning!</p>
+    <c:helloPlayground messages="What is your name?,What is your quest?,What is the capital of Assyria?,What is the air speed of an unladen swallow?,African or European Swallow?"/>
+	<h2>Interactive</h2>
+    <c:helloMessageInteractive/>
+</aura:component>

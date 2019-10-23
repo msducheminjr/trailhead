@@ -1,5 +1,19 @@
-public class EmailManager {
-    // Public method
+public with sharing class EmailManager{
+    // Public method with array of addresses subjects bodies
+    public static void sendMail(String [] addresses, String [] subjects, String [] messages) {
+        Messaging.SingleEmailMessage [] emails = new Messaging.SingleEmailMessage[]{};
+        Integer totalMails = addresses.size();
+        for(Integer i=0; i < totalMails; i++){
+            Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+            email.setSubject(subjects[i]);
+            email.setToAddresses(new List<String> { addresses[i] });
+            email.setPlainTextBody(messages[i]);
+            emails.add(email);
+        }
+        Messaging.sendEmail(emails);
+    }
+
+    // Public method with single address subject body
     public static void sendMail(String address, String subject, String body) {
         // Create an email message object
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
@@ -30,10 +44,9 @@ public class EmailManager {
             }
             else {
                 sendResult = false;
-                System.debug('The following errors occurred: ' + res.getErrors());                 
+                System.debug('The following errors occurred: ' + res.getErrors());
             }
         }
-        
         return sendResult;
     }
 }

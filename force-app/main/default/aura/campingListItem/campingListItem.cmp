@@ -1,0 +1,28 @@
+<aura:component >
+    <aura:attribute name="item" type="Camping_Item__c"/>
+	<aura:registerEvent name="itemTogglePacked" type="c:addItemEvent"/>
+    <lightning:card title="{!v.item.Name}" iconName="custom:custom5"
+                    class="{!v.item.Packed__c ?
+                           'slds-theme--success' : ''}">
+        <aura:set attribute="footer">
+            <p>Date: <lightning:formattedDateTime value="{!v.formatdate}"/></p>
+            <p class="slds-text-title"><lightning:relativeDateTime value="{!v.formatdate}"/></p>
+        </aura:set>
+        <p class="slds-text-heading--medium slds-p-horizontal--small">
+           Price: <lightning:formattedNumber value="{!v.item.Price__c}" style="currency"/>
+        </p>
+        <p class="slds-p-horizontal--small">
+            Quantity: {!v.item.Quantity__c}
+        </p>
+        <p>
+            <lightning:input type="toggle" 
+                             label="Packed?"
+                             name="packed"
+                             class="slds-p-around--small"
+                             checked="{!v.item.Packed__c}"
+                             messageToggleActive="Yes"
+                             messageToggleInactive="No"
+                             onchange="{!c.clickPacked}"/>
+        </p>
+    </lightning:card>
+</aura:component>

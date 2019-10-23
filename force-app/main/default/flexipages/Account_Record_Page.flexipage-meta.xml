@@ -6,10 +6,6 @@
                 <name>collapsed</name>
                 <value>false</value>
             </componentInstanceProperties>
-            <componentInstanceProperties>
-                <name>numVisibleActions</name>
-                <value>3</value>
-            </componentInstanceProperties>
             <componentName>force:highlightsPanel</componentName>
         </componentInstances>
         <mode>Replace</mode>
@@ -21,17 +17,9 @@
             <componentName>cooper:companyInsightTeaserCard</componentName>
         </componentInstances>
         <componentInstances>
-            <componentInstanceProperties>
-                <name>displayOption</name>
-                <value>BOTH</value>
-            </componentInstanceProperties>
             <componentName>runtime_sales_merge:mergeCandidatesPreviewCard</componentName>
         </componentInstances>
         <componentInstances>
-            <componentInstanceProperties>
-                <name>relatedListComponentOverride</name>
-                <value>NONE</value>
-            </componentInstanceProperties>
             <componentName>force:relatedListContainer</componentName>
         </componentInstances>
         <mode>Replace</mode>
@@ -157,7 +145,7 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <componentInstances>
-            <componentName>accountMap</componentName>
+            <componentName>MyContactList</componentName>
         </componentInstances>
         <componentInstances>
             <componentInstanceProperties>
@@ -165,6 +153,12 @@
                 <value>sidebartabs</value>
             </componentInstanceProperties>
             <componentName>flexipage:tabset</componentName>
+        </componentInstances>
+        <componentInstances>
+            <componentName>accDisplay</componentName>
+        </componentInstances>
+        <componentInstances>
+            <componentName>accEdit</componentName>
         </componentInstances>
         <mode>Replace</mode>
         <name>sidebar</name>

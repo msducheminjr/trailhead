@@ -1,0 +1,52 @@
+<aura:component >
+    <aura:attribute name="newItem" type="Camping_Item__c"
+         default="{ 'sobjectType': 'Camping_Item__c',
+                        'Name': '',
+                        'Price__c': 0,
+                        'Quantity__c': 0,
+                        'Packed__c': false }"/>   
+    <aura:registerEvent name="addItem" type="c:addItemEvent"/>
+    <!-- CREATE NEW CAMPING_ITEM -->
+    <div aria-labelledby="newitemform">
+        <!-- BOXED AREA -->
+        <fieldset class="slds-box slds-theme--default slds-container--small">
+        <legend id="newitemform" class="slds-text-heading--small 
+          slds-p-vertical--medium">
+          Add Camping Item
+        </legend>
+  
+        <!-- CREATE NEW CAMPING_ITEM FORM -->
+        <form class="slds-form--stacked">          
+            <lightning:input aura:id="campingItemform" label="Name"
+                             name="campingItemname"
+                             value="{!v.newItem.Name}"
+                             required="true"/> 
+            <lightning:input type="number" aura:id="campingItemform" label="Price"
+                             name="campingItemPrice"
+                             min="0.1"
+                             formatter="currency"
+                             step="0.01"
+                             value="{!v.newItem.Price__c}"
+                             messageWhenRangeUnderflow="Enter an amount that's at least $0.10."/>
+            <lightning:input type="number" aura:id="campingItemform" label="Quantity"
+                             name="campingItemQuantity"
+                             min="1"
+                             formatter="decimal"
+                             step="1"
+                             value="{!v.newItem.Quantity__c}"
+                             messageWhenRangeUnderflow="Enter an quantity that's at least 1."/>
+            <lightning:input type="checkbox" aura:id="campingItemform" label="Packed?"  
+                             name="campingItemPacked"
+                             checked="{!v.newItem.Packed__c}"/>
+            <lightning:button label="Create Camping Item" 
+                              class="slds-m-top--medium"
+                              variant="brand"
+                              onclick="{!c.clickCreateItem}"/>
+        </form>
+        <!-- / CREATE NEW CAMPING_ITEM FORM -->
+  
+      </fieldset>
+      <!-- / BOXED AREA -->
+    </div>
+    <!-- / CREATE NEW CAMPING_ITEM -->	
+</aura:component>

@@ -1,0 +1,9 @@
+.THIS.slds-card.slds-theme--success {
+    background-color: rgb(4, 132, 75);
+}
+.THIS.slds-theme_success .slds-form-element__label {
+    color: #dddddd;
+}
+.THIS.slds-theme_success .slds-text-title {
+    color: #dddddd;
+}
