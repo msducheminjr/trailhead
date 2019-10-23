@@ -1,5 +1,63 @@
 @isTest
 public class TestDataFactory {
+    public static List<List<sObject>> createBoats(Integer numBoatTypes, Integer numContacts, Integer boatsPerContact) {
+        List<List<sObject>> allObjects = new List<List<sObject>>();
+        List<BoatType__c> boatTypes = createBoatTypes(numBoatTypes);
+        List<Contact> contacts = createContacts(numContacts);
+        List<Boat__c> boats = new List<Boat__c>();
+        for (Contact c : contacts) {
+            // generate boats per contact
+            for (Integer i = 0; i < boatsPerContact; i++) {
+                boats.add(new Boat__c(Contact__c=c.Id));
+            }
+        }
+        boats = addBoatTypesRotational(boats, boatTypes);
+        insert boats;
+        allObjects.add(boatTypes);
+        allObjects.add(contacts);
+        allObjects.add(boats);
+        return allObjects;
+    }
+
+
+    public static List<BoatType__c> createBoatTypes(Integer numBoatTypes) {
+        List<BoatType__c> boatTypes = generateBoatTypes(numBoatTypes);
+        insert boatTypes;
+        return boatTypes;
+    }
+
+    public static List<BoatType__c> generateBoatTypes(Integer numBoatTypes) {
+        List<BoatType__c> boatTypes = new List<BoatType__c>();
+        for(Integer i=0; i<numBoatTypes;i++) {
+            boatTypes.add(new BoatType__c(Name='Type-'+i));
+        }
+        return boatTypes;
+    }
+
+    public static List<Contact> createContacts(Integer numContacts) {
+        List<Contact> contacts = generateContacts(numContacts);
+        insert contacts;
+        return contacts;
+    }
+
+    public static List<Contact> generateContacts(Integer numContacts) {
+        List<Contact> contacts = new List<Contact>();
+        for(Integer i=0; i<numContacts;i++) {
+            contacts.add(new Contact(FirstName='First-'+i, LastName='Last-'+i));
+        }
+        return contacts;
+    }
+
+    public static List<Boat__c> addBoatTypesRotational(List<Boat__c> boats, List<BoatType__c> boatTypes) {
+        Integer typesSize = boatTypes.size();
+        List<Boat__c> modBoats = new List<Boat__c>();
+        for (Integer i = 0; i < boats.size(); i++) {
+        	Integer boatTypeIndex = Math.mod(i, typesSize);
+            boats[i].BoatType__c = boatTypes[boatTypeIndex].Id;
+            modBoats.add(boats[i]);
+        }
+		return modBoats;
+    }
     public static Case maintenanceRequestTriggerPositive(String caseType) {
 		return insertCaseStructure(caseType, 'New');
     }

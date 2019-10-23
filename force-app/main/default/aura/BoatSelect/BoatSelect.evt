@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="Event fired when boat tile is selected in boat search results">
+	<aura:attribute name="boatId" type="Id" />
+</aura:event>

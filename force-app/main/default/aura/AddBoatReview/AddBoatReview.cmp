@@ -1,0 +1,41 @@
+<aura:component>
+	<aura:attribute name="boat" type="Boat__c" />
+    <aura:attribute name="boatReview" type="BoatReview__c" access="private"
+                default="{'sobjectType':'BoatReview__c','Id':'','Boat__c':'', 'Name':'', 'Comment__c':''}"/>
+<!--	<aura:attribute name="simpleReview" type="Object" access="private" /> -->
+    <aura:attribute name="recordError" type="String" />
+
+    <force:recordData aura:id="service"
+                      targetFields="{!v.boatReview}"
+                      fields="Id,Name,Comment__c,Boat__c"
+                      targetError="{!v.recordError}"
+        			  recordUpdated="{!c.onRecordUpdated}"                      
+                      />    
+
+    <aura:registerEvent name="BoatReviewAdded" type="c:BoatReviewAdded" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+            <lightning:layout class="slds-grid">
+                <lightning:layoutItem class = "slds-col" padding="around-small">
+                    <div class="slds-form slds-form_stacked">
+                        <lightning:input aura:id="title" name="title" label="Title" value="{!v.boatReview.Name}"/>
+                        <label class="slds-form-element__label" for="serviceDescription">Description</label>
+                        <lightning:inputRichText aura:id="comment" 
+                                                 value="{!v.boatReview.Comment__c}" 
+                                                 placeholder="Comment"
+                                                 disabledCategories="FORMAT_FONT"/>
+                        
+                        <c:FiveStarRating value="{!v.boatReview.Rating__c}" />
+                    </div>
+                    <lightning:layout horizontalAlign="center">        
+                        <lightning:layoutItem padding="around-small">
+							<lightning:button label="Submit" variant="neutral" iconName="utility:save" onclick="{!c.onSave}"/>
+                        </lightning:layoutItem>
+                    </lightning:layout>
+                    <aura:if isTrue="{!not(empty(v.recordError))}">
+                        <div class="recordSaveError">
+                            {!v.recordError}</div>
+                    </aura:if>
+                </lightning:layoutItem>
+            </lightning:layout>
+</aura:component>

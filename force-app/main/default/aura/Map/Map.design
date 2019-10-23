@@ -1,2 +1,4 @@
-<design:component label="Map">
+<design:component>
+	<design:attribute name="width" label="Width" description="Allow lightning app builder to set width" />
+    <design:attribute name="height" label="Height" description="Allow lightning app builder to set height" />
 </design:component>
