@@ -6,6 +6,21 @@
             "c/accountMap": [
                 "accountMap/accountMap.js"
             ],
+            "c/bearList": [
+                "bearList/bearList.js"
+            ],
+            "c/bearLocation": [
+                "bearLocation/bearLocation.js"
+            ],
+            "c/bearMap": [
+                "bearMap/bearMap.js"
+            ],
+            "c/bearSupervisor": [
+                "bearSupervisor/bearSupervisor.js"
+            ],
+            "c/bearTile": [
+                "bearTile/bearTile.js"
+            ],
             "c/bikeCard": [
                 "bikeCard/bikeCard.js"
             ],
@@ -14,6 +29,9 @@
             ],
             "c/detail": [
                 "detail/detail.js"
+            ],
+            "c/helloWebComponent": [
+                "helloWebComponent/helloWebComponent.js"
             ],
             "c/inlineMessage": [
                 "inlineMessage/inlineMessage.js"
@@ -62,24 +80,6 @@
             ],
             "c/tile": [
                 "tile/tile.js"
-            ],
-            "c/bearList": [
-                "bearList/bearList.js"
-            ],
-            "c/bearMap": [
-                "bearMap/bearMap.js"
-            ],
-            "c/bearSupervisor": [
-                "bearSupervisor/bearSupervisor.js"
-            ],
-            "c/bearLocation": [
-                "bearLocation/bearLocation.js"
-            ],
-            "c/bearTile": [
-                "bearTile/bearTile.js"
-            ],
-            "c/helloWebComponent": [
-                "helloWebComponent/helloWebComponent.js"
             ]
         }
     },

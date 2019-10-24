@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fortification</fullName>
+    <active>true</active>
+    <description>A defensive emplacement within the castle.</description>
+    <label>Fortification</label>
+    <picklistValues>
+        <picklist>Type__c</picklist>
+        <values>
+            <fullName>Battlement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Drawbridge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Fortification</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Portcullis</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tower</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wall</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

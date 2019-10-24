@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Building</fullName>
+    <active>true</active>
+    <description>Castle buildings</description>
+    <label>Building</label>
+    <picklistValues>
+        <picklist>Type__c</picklist>
+        <values>
+            <fullName>Bailey</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chambers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chapel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dungeon</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Garrison</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Keep</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kitchen</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Building</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stables</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quarters__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The quarters of the person.</description>
+    <externalId>false</externalId>
+    <label>Quarters</label>
+    <referenceTo>Property__c</referenceTo>
+    <relationshipLabel>Quartered Persons</relationshipLabel>
+    <relationshipName>Quartered_Persons</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

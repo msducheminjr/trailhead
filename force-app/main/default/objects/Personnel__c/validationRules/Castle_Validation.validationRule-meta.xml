@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Castle_Validation</fullName>
+    <active>true</active>
+    <description>A person&#39;s assignment and quarters must be at the castle they are at!</description>
+    <errorConditionFormula>((Castle__c  !=  Assignment__r.Castle__c) &amp;&amp;  not(ISBLANK(Assignment__c)))  
+||  
+((Castle__c !=  Quarters__r.Castle__c) &amp;&amp;not(ISBLANK(Quarters__c)))</errorConditionFormula>
+    <errorMessage>User must be assigned or quartered to a post corresponding to their current castle location.</errorMessage>
+</ValidationRule>
