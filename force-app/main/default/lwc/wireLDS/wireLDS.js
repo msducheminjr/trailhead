@@ -5,6 +5,10 @@ import OWNER_NAME_FIELD from '@salesforce/schema/Account.Owner.Name';
 import PHONE_FIELD from '@salesforce/schema/Account.Phone';
 import INDUSTRY_FIELD from '@salesforce/schema/Account.Industry';
 
+/*
+Example REST call to get example mock data to place in JSON
+/services/data/v47.0/ui-api/records/0011J00001A3VFo?fields=Account.Name,Account.Industry&optionalFields=Account.Phone,Account.Owner.Name
+*/
 export default class WireLDS extends LightningElement {
   @api recordId;
 
