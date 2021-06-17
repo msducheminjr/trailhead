@@ -12,4 +12,12 @@
           onclick={reset}>
       </lightning-button>
   </lightning-card>
+  <template if:true={accounts.data}>
+    <template for:each={accounts.data} for:item="account">
+         <p key={account.Id}>{account.Name}</p>
+    </template>
+  </template>
+  <template if:true={accounts.error}>
+      <p>No accounts found.</p>
+  </template>
 </template>
