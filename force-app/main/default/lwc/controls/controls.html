@@ -1,16 +1,33 @@
 <template>
   <lightning-card title="Controls" icon-name="action:upload">
-    <lightning-button
-      class="slds-m-left_x-small"
-      label={operand}
-      icon-name="utility:dash"
-      onclick={handleSubtract}>
-    </lightning-button>
-    <lightning-button
-      class="slds-m-left_x-small"
-      label={operand}
-      icon-name="utility:add"
-      onclick={handleAdd}>
-    </lightning-button>
+    <lightning-layout>
+      <lightning-layout-item flexibility="auto" padding="around-small">
+        <lightning-button
+          label="Subtract"
+          name="Subtract"
+          icon-name="utility:dash"
+          onclick={handleSubtract}>
+        </lightning-button>
+      </lightning-layout-item>
+      <lightning-layout-item flexibility="auto" padding="around-small" onbuttonclick={handleMultiply}>
+        <template for:each={factors} for:item="factor">
+          <c-button
+            key={factor}
+            label={factor}
+            data-factor={factor}
+            icon="utility:close">
+          </c-button>
+        </template>
+      </lightning-layout-item>
+      <lightning-layout-item flexibility="auto" padding="around-small">
+        <lightning-button
+          label="Add"
+          name="Add"
+          icon-name="utility:add"
+          onclick={handleAdd}
+          icon-position="right">
+        </lightning-button>
+      </lightning-layout-item>
+    </lightning-layout>
   </lightning-card>
 </template>

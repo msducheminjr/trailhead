@@ -29,7 +29,6 @@ describe('c-account-finder', () => {
     // Trigger annual revenue input change
     const inputElement = element.shadowRoot.querySelector('lightning-input');
     inputElement.dispatchEvent(new CustomEvent('change', {detail: {value: 2000000}}));
-    console.log('Before promise');
     return Promise.resolve().then(() => {
       expect(inputElement.value).toBe(2000000);
     });
