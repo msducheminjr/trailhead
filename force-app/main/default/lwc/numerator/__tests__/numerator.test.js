@@ -15,12 +15,14 @@ describe('c-numerator', () => {
         });
         document.body.appendChild(element);
         const controlsElement = element.shadowRoot.querySelector('c-controls');
-        const formattedNum = element.shadowRoot.querySelector('lightning-formatted-number');
+        const formattedNum = element.shadowRoot.querySelector('p.current lightning-formatted-number');
+        const priorNum = element.shadowRoot.querySelector('p.prior lightning-formatted-number');
         expect(formattedNum.value).toBe(0);
         controlsElement.dispatchEvent(new CustomEvent('add'));
         controlsElement.dispatchEvent(new CustomEvent('add'));
         return Promise.resolve().then(() => {
             expect(formattedNum.value).toBe(2);
+            expect(priorNum.value).toBe(1);
         });
     });
 
@@ -30,13 +32,15 @@ describe('c-numerator', () => {
         });
         document.body.appendChild(element);
         const controlsElement = element.shadowRoot.querySelector('c-controls');
-        const formattedNum = element.shadowRoot.querySelector('lightning-formatted-number');
+        const formattedNum = element.shadowRoot.querySelector('p.current lightning-formatted-number');
+        const priorNum = element.shadowRoot.querySelector('p.prior lightning-formatted-number');
         expect(formattedNum.value).toBe(0);
         controlsElement.dispatchEvent(new CustomEvent('subtract'));
         controlsElement.dispatchEvent(new CustomEvent('subtract'));
         controlsElement.dispatchEvent(new CustomEvent('subtract'));
         return Promise.resolve().then(() => {
             expect(formattedNum.value).toBe(-3);
+            expect(priorNum.value).toBe(-2);
         });
     });
 
@@ -46,13 +50,15 @@ describe('c-numerator', () => {
         });
         document.body.appendChild(element);
         const controlsElement = element.shadowRoot.querySelector('c-controls');
-        const formattedNum = element.shadowRoot.querySelector('lightning-formatted-number');
+        const formattedNum = element.shadowRoot.querySelector('p.current lightning-formatted-number');
+        const priorNum = element.shadowRoot.querySelector('p.prior lightning-formatted-number');
         expect(formattedNum.value).toBe(0);
         controlsElement.dispatchEvent(new CustomEvent('subtract'));
         controlsElement.dispatchEvent(new CustomEvent('add'));
         controlsElement.dispatchEvent(new CustomEvent('subtract'));
         return Promise.resolve().then(() => {
             expect(formattedNum.value).toBe(-1);
+            expect(priorNum.value).toBe(0);
         });
     });
 
@@ -62,15 +68,17 @@ describe('c-numerator', () => {
         });
         document.body.appendChild(element);
         const controlsElement = element.shadowRoot.querySelector('c-controls');
-        const formattedNum = element.shadowRoot.querySelector('lightning-formatted-number');
+        const formattedNum = element.shadowRoot.querySelector('p.current lightning-formatted-number');
+        const priorNum = element.shadowRoot.querySelector('p.prior lightning-formatted-number');
         expect(formattedNum.value).toBe(0);
         controlsElement.dispatchEvent(new CustomEvent('add')); // 1
         controlsElement.dispatchEvent(new CustomEvent('add')); // 2
-        controlsElement.dispatchEvent(new CustomEvent('multiply', { detail: 2 })); // 6
+        controlsElement.dispatchEvent(new CustomEvent('multiply', { detail: 2 })); // 4
         controlsElement.dispatchEvent(new CustomEvent('multiply', { detail: 3 })); // 12
 
         return Promise.resolve().then(() => {
             expect(formattedNum.value).toBe(12);
+            expect(priorNum.value).toBe(4);
         });
     });
 });
