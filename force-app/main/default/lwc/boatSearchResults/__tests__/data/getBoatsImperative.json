@@ -1,0 +1,56 @@
+[
+  {
+    "attributes": {
+      "type": "Boat__c",
+      "url": "/services/data/v52.0/sobjects/Boat__c/a025e000003AQaYAAW"
+    },
+    "Name": "All in Family",
+    "Description__c": "A boat that is so much fun, the world will speak for her.",
+    "Geolocation__Latitude__s": 43.796036,
+    "Geolocation__Longitude__s": -87.062663,
+    "Picture__c": "/resource/Houseboats/fishingboat3.jpg",
+    "Contact__c": "0035e0000079ZHvAAQ",
+    "BoatType__c": "a015e00000F8AXdAAN",
+    "Length__c": 13,
+    "Price__c": 139000,
+    "Id": "a025e000003AQaYAAW",
+    "Contact__r": { "Name": "Archie Bunker", "Id": "0035e0000079ZHvAAQ" },
+    "BoatType__r": { "Name": "Yacht", "Id": "a015e00000F8AXdAAN" }
+  },
+  {
+    "attributes": {
+      "type": "Boat__c",
+      "url": "/services/data/v52.0/sobjects/Boat__c/a025e000003AQaYAAX"
+    },
+    "Name": "Some in Family",
+    "Description__c": "A boat that is so much fun, the world will speak for her.",
+    "Geolocation__Latitude__s": 44.796036,
+    "Geolocation__Longitude__s": -88.062663,
+    "Picture__c": "/resource/Houseboats/fishingboat3.jpg",
+    "Contact__c": "0035e0000079ZHvAAR",
+    "BoatType__c": "a015e00000F8AXdAAN",
+    "Length__c": 13,
+    "Price__c": 139000,
+    "Id": "a025e000003AQaYAAX",
+    "Contact__r": { "Name": "Edith Bunker", "Id": "0035e0000079ZHvAAR" },
+    "BoatType__r": { "Name": "Yacht", "Id": "a015e00000F8AXdAAN" }
+  },
+  {
+    "attributes": {
+      "type": "Boat__c",
+      "url": "/services/data/v52.0/sobjects/Boat__c/a025e000003AQaYAAY"
+    },
+    "Name": "None in Family",
+    "Description__c": "A boat that is so much fun, the world will speak for her.",
+    "Geolocation__Latitude__s": 45.796036,
+    "Geolocation__Longitude__s": -89.062663,
+    "Picture__c": "/resource/Houseboats/fishingboat3.jpg",
+    "Contact__c": "0035e0000079ZHvAAS",
+    "BoatType__c": "a015e00000F8AXdAAN",
+    "Length__c": 13,
+    "Price__c": 139000,
+    "Id": "a025e000003AQaYAAY",
+    "Contact__r": { "Name": "Gloria Bunker", "Id": "0035e0000079ZHvAAS" },
+    "BoatType__r": { "Name": "Yacht", "Id": "a015e00000F8AXdAAN" }
+  }
+]

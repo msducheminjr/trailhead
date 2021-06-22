@@ -1,0 +1,71 @@
+[
+  {
+    "attributes": {
+      "type": "BoatReview__c",
+      "url": "/services/data/v52.0/sobjects/BoatReview__c/a005e000003uxk6AAA"
+    },
+    "Id": "a005e000003uxk6AAA",
+    "Name": "Archie Bunker would be proud!",
+    "Comment__c": "This boat is <em>great</em>! It even has Archie Bunker&#39;s chair",
+    "Rating__c": 5,
+    "LastModifiedDate": "2021-07-05T21:57:32.000+0000",
+    "CreatedDate": "2021-07-05T21:47:32.000+0000",
+    "CreatedById":"0055e000003uQv7AAQ",
+    "CreatedBy" : {
+      "attributes":{
+        "type":"User",
+        "url":"/services/data/v52.0/sobjects/User/0055e000003uQv7AAQ"
+      },
+      "Id":"0055e000003uQv7AAQ",
+      "Name": "Boaty Reviewer",
+      "SmallPhotoUrl": "https://inqusitive-pixie-dupsbx-dev-ed--c.documentforce.com/profilephoto/005/T",
+      "CompanyName": "Stateless Code"
+    }
+  },
+  {
+    "attributes": {
+      "type": "BoatReview__c",
+      "url": "/services/data/v52.0/sobjects/BoatReview__c/a005e000003uxk6AAB"
+    },
+    "Id": "a005e000003uxk6AAB",
+    "Name": "Meh",
+    "Comment__c": "It is adequate. That is about all I can say about it",
+    "Rating__c": 3,
+    "LastModifiedDate": "2021-07-04T21:57:32.000+0000",
+    "CreatedDate": "2021-07-04T21:47:32.000+0000",
+    "CreatedById":"0055e000003uQv7AAR",
+    "CreatedBy" : {
+      "attributes":{
+        "type":"User",
+        "url":"/services/data/v52.0/sobjects/User/0055e000003uQv7AAR"
+      },
+      "Id":"0055e000003uQv7AAR",
+      "Name": "Another Reviewer",
+      "SmallPhotoUrl": "https://inqusitive-pixie-dupsbx-dev-ed--c.documentforce.com/profilephoto/007/T",
+      "CompanyName": "Liberinator"
+    }
+  },
+  {
+    "attributes": {
+      "type": "BoatReview__c",
+      "url": "/services/data/v52.0/sobjects/BoatReview__c/a005e000003uxk6AAC"
+    },
+    "Id": "a005e000003uxk6AAC",
+    "Name": "Too turbulent",
+    "Comment__c": "I could not play tabletop RPGs on this boat. Even the slighest wave caused stuff to fall off the table.",
+    "Rating__c": 2,
+    "LastModifiedDate": "2021-07-02T21:57:32.000+0000",
+    "CreatedDate": "2021-07-02T21:47:32.000+0000",
+    "CreatedById":"0055e000003uQv7AAS",
+    "CreatedBy" : {
+      "attributes":{
+        "type":"User",
+        "url":"/services/data/v52.0/sobjects/User/0055e000003uQv7AAS"
+      },
+      "Id":"0055e000003uQv7AAS",
+      "Name": "Nerdy Reviewer",
+      "SmallPhotoUrl": "https://inqusitive-pixie-dupsbx-dev-ed--c.documentforce.com/profilephoto/009/T",
+      "CompanyName": "Nerd Dice"
+    }
+  }
+]
