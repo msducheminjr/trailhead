@@ -1,0 +1,32 @@
+[
+  {
+    "attributes": {
+      "type": "Boat__c",
+      "url": "/services/data/v52.0/sobjects/Boat__c/a025e000003AQaYAAW"
+    },
+    "Name": "All in Family",
+    "Geolocation__Latitude__s": 43.796036,
+    "Geolocation__Longitude__s": -87.062663,
+    "Id": "a025e000003AQaYAAW"
+  },
+  {
+    "attributes": {
+      "type": "Boat__c",
+      "url": "/services/data/v52.0/sobjects/Boat__c/a025e000003AQaYAAX"
+    },
+    "Name": "Some in Family",
+    "Geolocation__Latitude__s": 44.796036,
+    "Geolocation__Longitude__s": -88.062663,
+    "Id": "a025e000003AQaYAAX"
+  },
+  {
+    "attributes": {
+      "type": "Boat__c",
+      "url": "/services/data/v52.0/sobjects/Boat__c/a025e000003AQaYAAY"
+    },
+    "Name": "None in Family",
+    "Geolocation__Latitude__s": 45.796036,
+    "Geolocation__Longitude__s": -89.062663,
+    "Id": "a025e000003AQaYAAW"
+  }
+]

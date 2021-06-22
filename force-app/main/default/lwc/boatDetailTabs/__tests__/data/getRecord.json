@@ -1,0 +1,14 @@
+{
+  "apiName": "Boat__c",
+  "childRelationships": {},
+  "fields": {
+    "Name": { "displayValue": null, "value": "Elliot Finger" },
+    "Id": { "displayValue": null, "value": "a025e000003AQbNAAW" }
+  },
+  "id": "a025e000003AQbNAAW",
+  "lastModifiedById": "0055e000003uQv7AAE",
+  "lastModifiedDate": "2021-06-22T20:21:18.000Z",
+  "recordTypeId": "012000000000000AAA",
+  "recordTypeInfo": null,
+  "systemModstamp": "2021-06-22T20:21:18.000Z"
+}
