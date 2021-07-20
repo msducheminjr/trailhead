@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:unit": "sfdx-lwc-jest",
     "test:unit:debug": "sfdx-lwc-jest --debug",
-    "test:unit:watch": "sfdx-lwc-jest --watch"
+    "test:unit:watch": "sfdx-lwc-jest --watch",
+    "test:unit:coverage": "sfdx-lwc-jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,6 @@
   },
   "homepage": "https://github.com/msducheminjr/trailhead#readme",
   "devDependencies": {
-    "@salesforce/sfdx-lwc-jest": "^0.10.4"
+    "@salesforce/sfdx-lwc-jest": "^0.14.0"
   }
 }

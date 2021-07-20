@@ -29,3 +29,6 @@ $RECYCLE.BIN/
 
 # Ignore VS Code config folder
 .vscode/
+
+# Ignore Jest coverage
+coverage/
