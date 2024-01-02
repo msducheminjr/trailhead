@@ -13,8 +13,22 @@
         <members>LoremIpsumTests</members>
         <members>MyDataGenerationTests</members>
         <members>OpportunityDiscount</members>
+        <members>PermissionsTests</members>
         <members>TestFactory</members>
         <name>ApexClass</name>
+    </types>
+    <types>
+        <members>Private_Object__c.Notes__c</members>
+        <members>Private_Object__c.Account__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>Private_Object__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Private_Object_Access</members>
+        <name>PermissionSet</name>
     </types>
     <types>
         <members>accountData</members>
