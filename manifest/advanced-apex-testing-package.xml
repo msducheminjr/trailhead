@@ -6,6 +6,7 @@
         <members>AccountWrapperTests</members>
         <members>CSVTests</members>
         <members>Calculator</members>
+        <members>CalculatorTests</members>
         <members>DataGenerationTests</members>
         <members>ExternalSearch</members>
         <members>LoremIpsum</members>
