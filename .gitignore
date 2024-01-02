@@ -4,6 +4,8 @@
 
 # Salesforce cache
 .sfdx/
+.sf/
+.localdevserver/
 
 # Logs
 logs
