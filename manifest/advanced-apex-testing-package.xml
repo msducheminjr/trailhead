@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>CSVTests</members>
+        <members>DataGenerationTests</members>
+        <members>MyDataGenerationTests</members>
+        <members>TestFactory</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>accountData</members>
+        <members>otherAccountData</members>
+        <name>StaticResource</name>
+    </types>
+    <version>59.0</version>
+</Package>
