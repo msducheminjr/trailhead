@@ -3,6 +3,7 @@
     <types>
         <members>AccountWrapper</members>
         <members>AccountWrapperMock</members>
+        <members>AccountWrapperTests</members>
         <members>CSVTests</members>
         <members>Calculator</members>
         <members>DataGenerationTests</members>
