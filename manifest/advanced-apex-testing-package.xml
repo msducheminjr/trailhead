@@ -9,10 +9,13 @@
         <members>CalculatorTests</members>
         <members>DataGenerationTests</members>
         <members>ExternalSearch</members>
+        <members>ExternalSearchTests</members>
+        <members>HTTPMockFactory</members>
         <members>LoremIpsum</members>
         <members>LoremIpsumTests</members>
         <members>MyDataGenerationTests</members>
         <members>OpportunityDiscount</members>
+        <members>OpportunityDiscountTests</members>
         <members>PermissionsTests</members>
         <members>TestFactory</members>
         <name>ApexClass</name>
