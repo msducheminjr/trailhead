@@ -1,6 +1,5 @@
 import { createElement } from 'lwc';
 import BoatsNearMe from 'c/boatsNearMe';
-import { registerApexTestWireAdapter } from '@salesforce/sfdx-lwc-jest';
 import getBoatsByLocation from '@salesforce/apex/BoatDataService.getBoatsByLocation';
 import { ShowToastEventName } from 'lightning/platformShowToastEvent';
 
@@ -11,8 +10,19 @@ const mockGetBoatsByLocation = require('./data/getBoatsByLocation.json');
 // when there is no data to display
 const mockGetBoatsByLocationNoRecords = require('./data/getBoatsByLocationNoRecords.json');
 
-// Register as Apex wire adapter. Some tests verify that provisioned values trigger desired behavior.
-const getBoatsByLocationAdapter = registerApexTestWireAdapter(getBoatsByLocation);
+// Mock BoatDataService.getBoatsByLocation Apex wire adapter
+jest.mock(
+  '@salesforce/apex/BoatDataService.getBoatsByLocation',
+  () => {
+      const {
+          createApexTestWireAdapter
+      } = require('@salesforce/sfdx-lwc-jest');
+      return {
+          default: createApexTestWireAdapter(jest.fn())
+      };
+  },
+  { virtual: true }
+);
 
 const mockApexWireError = {
   body: { message: 'An internal server error has occurred' },
@@ -46,8 +56,13 @@ describe('c-boats-near-me', () => {
     jest.clearAllMocks();
   });
 
+  // Helper function to resolve promises instead of using nested Promise.resolve() calls.
+  async function flushPromises() {
+    return Promise.resolve();
+  }
+
   describe('getBoatsByLocation @wire data', () => {
-    it('adds four pins to the map if three records', () => {
+    it('adds four pins to the map if three records', async () => {
       const element = createElement('c-boats-near-me', {
         is: BoatsNearMe
       });
@@ -55,45 +70,47 @@ describe('c-boats-near-me', () => {
       document.body.appendChild(element);
 
       // Emit data from @wire
-      getBoatsByLocationAdapter.emit(JSON.stringify(mockGetBoatsByLocation));
-      return Promise.resolve().then(() => {
-        // Select elements for validation
-        const mapElement = element.shadowRoot.querySelector('lightning-map');
-        expect(mapElement.mapMarkers).toStrictEqual([
-          {
-            location: {
-              Latitude: 43,
-              Longitude: 87
-            },
-            title: 'You are here!',
-            icon: 'standard:user'
+      getBoatsByLocation.emit(JSON.stringify(mockGetBoatsByLocation));
+
+      // await promise resolution
+      await flushPromises();
+
+      // Select elements for validation
+      const mapElement = element.shadowRoot.querySelector('lightning-map');
+      expect(mapElement.mapMarkers).toStrictEqual([
+        {
+          location: {
+            Latitude: 43,
+            Longitude: 87
           },
-          {
-            location: {
-              Latitude: mockGetBoatsByLocation[0].Geolocation__Latitude__s,
-              Longitude: mockGetBoatsByLocation[0].Geolocation__Longitude__s
-            },
-            title: mockGetBoatsByLocation[0].Name
+          title: 'You are here!',
+          icon: 'standard:user'
+        },
+        {
+          location: {
+            Latitude: mockGetBoatsByLocation[0].Geolocation__Latitude__s,
+            Longitude: mockGetBoatsByLocation[0].Geolocation__Longitude__s
           },
-          {
-            location: {
-              Latitude: mockGetBoatsByLocation[1].Geolocation__Latitude__s,
-              Longitude: mockGetBoatsByLocation[1].Geolocation__Longitude__s
-            },
-            title: mockGetBoatsByLocation[1].Name
+          title: mockGetBoatsByLocation[0].Name
+        },
+        {
+          location: {
+            Latitude: mockGetBoatsByLocation[1].Geolocation__Latitude__s,
+            Longitude: mockGetBoatsByLocation[1].Geolocation__Longitude__s
           },
-          {
-            location: {
-              Latitude: mockGetBoatsByLocation[2].Geolocation__Latitude__s,
-              Longitude: mockGetBoatsByLocation[2].Geolocation__Longitude__s
-            },
-            title: mockGetBoatsByLocation[2].Name
-          }
-        ]);
-      });
+          title: mockGetBoatsByLocation[1].Name
+        },
+        {
+          location: {
+            Latitude: mockGetBoatsByLocation[2].Geolocation__Latitude__s,
+            Longitude: mockGetBoatsByLocation[2].Geolocation__Longitude__s
+          },
+          title: mockGetBoatsByLocation[2].Name
+        }
+      ]);
     });
 
-    it('adds just the user location if no records', () => {
+    it('adds just the user location if no records', async () => {
       const element = createElement('c-boats-near-me', {
         is: BoatsNearMe
       });
@@ -101,23 +118,25 @@ describe('c-boats-near-me', () => {
       document.body.appendChild(element);
 
       // Emit data from @wire
-      getBoatsByLocationAdapter.emit(JSON.stringify(mockGetBoatsByLocationNoRecords));
-      return Promise.resolve().then(() => {
-        // Select elements for validation
-        const mapElement = element.shadowRoot.querySelector('lightning-map');
-        expect(mapElement.mapMarkers).toStrictEqual(
-          [{
-            location: {
-              Latitude: 43,
-              Longitude: 87
-            },
-            title: 'You are here!',
-            icon: 'standard:user'
-          }]);
-      });
+      getBoatsByLocation.emit(JSON.stringify(mockGetBoatsByLocationNoRecords));
+
+      // await promise resolution
+      await flushPromises();
+
+      // Select elements for validation
+      const mapElement = element.shadowRoot.querySelector('lightning-map');
+      expect(mapElement.mapMarkers).toStrictEqual(
+        [{
+          location: {
+            Latitude: 43,
+            Longitude: 87
+          },
+          title: 'You are here!',
+          icon: 'standard:user'
+      }]);
     });
 
-    it('handles wire errors', () => {
+    it('handles wire errors', async () => {
       const element = createElement('c-boats-near-me', {
         is: BoatsNearMe
       });
@@ -131,13 +150,15 @@ describe('c-boats-near-me', () => {
         correctToast = true;
       });
       // Emit data from @wire
-      getBoatsByLocationAdapter.emitError(mockApexWireError);
-      return Promise.resolve().then(() => {
-        // Select elements for validation
-        const mapElement = element.shadowRoot.querySelector('lightning-map');
-        expect(mapElement).toBeNull();
-        expect(correctToast).toBe(true);
-      });
+      getBoatsByLocation.emitError(mockApexWireError);
+
+      // await promise resolution
+      await flushPromises();
+
+      // Select elements for validation
+      const mapElement = element.shadowRoot.querySelector('lightning-map');
+      expect(mapElement).toBeNull();
+      expect(correctToast).toBe(true);
     });
   });
 });

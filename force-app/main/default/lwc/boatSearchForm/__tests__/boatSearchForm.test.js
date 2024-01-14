@@ -1,6 +1,5 @@
 import { createElement } from 'lwc';
 import BoatSearchForm from 'c/boatSearchForm';
-import { registerApexTestWireAdapter } from '@salesforce/sfdx-lwc-jest';
 import getBoatTypes from '@salesforce/apex/BoatDataService.getBoatTypes';
 import { ShowToastEventName } from 'lightning/platformShowToastEvent';
 
@@ -11,8 +10,19 @@ const mockGetBoatTypes = require('./data/getBoatTypes.json');
 // when there is no data to display
 const mockGetBoatTypesNoRecords = require('./data/getBoatTypesNoRecords.json');
 
-// Register as Apex wire adapter. Some tests verify that provisioned values trigger desired behavior.
-const getBoatTypesAdapter = registerApexTestWireAdapter(getBoatTypes);
+// Mock getBoatTypes Apex wire adapter
+jest.mock(
+  '@salesforce/apex/BoatDataService.getBoatTypes',
+  () => {
+      const {
+          createApexTestWireAdapter
+      } = require('@salesforce/sfdx-lwc-jest');
+      return {
+          default: createApexTestWireAdapter(jest.fn())
+      };
+  },
+  { virtual: true }
+);
 
 describe('c-boat-search-form', () => {
   afterEach(() => {
@@ -24,46 +34,53 @@ describe('c-boat-search-form', () => {
     jest.clearAllMocks();
   });
 
+  // Helper function to resolve promises instead of using nested Promise.resolve() calls.
+  async function flushPromises() {
+    return Promise.resolve();
+  }
+
   describe('getBoatTypes @wire data', () => {
-    it('adds four records to the combobox', () => {
+    it('adds four records to the combobox', async () => {
       const element = createElement('c-boat-search-form', {
         is: BoatSearchForm
       });
       document.body.appendChild(element);
 
       // Emit data from @wire
-      getBoatTypesAdapter.emit(mockGetBoatTypes);
+      getBoatTypes.emit(mockGetBoatTypes);
       const boatTypeDropdown = element.shadowRoot.querySelector('lightning-combobox');
       expect(boatTypeDropdown.options.length).toBe(1);
-      return Promise.resolve().then(() => {
-        // Select elements for validation
 
-        expect(boatTypeDropdown.options.length).toBe(mockGetBoatTypes.length + 1);
-        expect(boatTypeDropdown.options[1].label).toBe(mockGetBoatTypes[0].Name);
-        expect(boatTypeDropdown.options[1].value).toBe(mockGetBoatTypes[0].Id);
-      });
+      // await promise resolution
+      await flushPromises();
+
+      // Select elements for validation
+      expect(boatTypeDropdown.options.length).toBe(mockGetBoatTypes.length + 1);
+      expect(boatTypeDropdown.options[1].label).toBe(mockGetBoatTypes[0].Name);
+      expect(boatTypeDropdown.options[1].value).toBe(mockGetBoatTypes[0].Id);
     });
 
-    it('only has 1 record in combobox if no records', () => {
+    it('only has 1 record in combobox if no records', async () => {
       const element = createElement('c-boat-search-form', {
         is: BoatSearchForm
       });
       document.body.appendChild(element);
 
-      // Emit data from @wire
-      getBoatTypesAdapter.emit(mockGetBoatTypesNoRecords);
       const boatTypeDropdown = element.shadowRoot.querySelector('lightning-combobox');
       expect(boatTypeDropdown.options.length).toBe(1);
-      return Promise.resolve().then(() => {
-        // Select elements for validation
 
-        expect(boatTypeDropdown.options.length).toBe(1);
-        expect(boatTypeDropdown.options[0].label).toBe('All Types');
-        expect(boatTypeDropdown.options[0].value).toBe('');
-      });
+      // Emit data from @wire
+      getBoatTypes.emit(mockGetBoatTypesNoRecords);
+
+      // await promise resolution
+      await flushPromises();
+
+      expect(boatTypeDropdown.options.length).toBe(1);
+      expect(boatTypeDropdown.options[0].label).toBe('All Types');
+      expect(boatTypeDropdown.options[0].value).toBe('');
     });
 
-    it('handles error', () => {
+    it('handles error', async () => {
       const element = createElement('c-boat-search-form', {
         is: BoatSearchForm
       });
@@ -75,22 +92,26 @@ describe('c-boat-search-form', () => {
         expect(event.detail.variant).toBe('error');
         correctToast = true;
       });
-      // Emit data from @wire
-      getBoatTypesAdapter.emitError();
+
       const boatTypeDropdown = element.shadowRoot.querySelector('lightning-combobox');
       expect(boatTypeDropdown.options.length).toBe(1);
-      return Promise.resolve().then(() => {
-        // Select elements for validation
-        expect(correctToast).toBe(true);
-        expect(boatTypeDropdown.options.length).toBe(1);
-        expect(boatTypeDropdown.options[0].label).toBe('All Types');
-        expect(boatTypeDropdown.options[0].value).toBe('');
-      });
+
+      // Emit data from @wire
+      getBoatTypes.emitError();
+
+      // await promise resolution
+      await flushPromises();
+
+      // Select elements for validation
+      expect(correctToast).toBe(true);
+      expect(boatTypeDropdown.options.length).toBe(1);
+      expect(boatTypeDropdown.options[0].label).toBe('All Types');
+      expect(boatTypeDropdown.options[0].value).toBe('');
     });
   });
 
   describe('boatType selected', () => {
-    it('fires the search event in combobox value changes', () => {
+    it('fires the search event in combobox value changes', async () => {
       const element = createElement('c-boat-search-form', {
         is: BoatSearchForm
       });
@@ -104,10 +125,11 @@ describe('c-boat-search-form', () => {
       const boatTypeDropdown = element.shadowRoot.querySelector('lightning-combobox');
       boatTypeDropdown.value = selectedId;
       boatTypeDropdown.dispatchEvent(new CustomEvent('change'));
-      return Promise.resolve().then(() => {
-        expect(expectedDetail).toBe(true);
-      });
-    });
 
+      // await promise resolution
+      await flushPromises();
+
+      expect(expectedDetail).toBe(true);
+    });
   });
 });

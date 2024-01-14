@@ -4,6 +4,9 @@ import { ShowToastEventName } from 'lightning/platformShowToastEvent';
 
 const BOAT_ID = 'a025e000003AQaYAAW';
 
+// Use the mock version of fiveStarRating defined in the __mocks__ directory of that LWC
+jest.mock( 'c/fiveStarRating' );
+
 describe('c-boat-add-review-form', () => {
   afterEach(() => {
     // The jsdom instance is shared across test cases in a single file so reset the DOM
@@ -12,6 +15,11 @@ describe('c-boat-add-review-form', () => {
     }
     jest.clearAllMocks();
   });
+
+  // Helper function to resolve promises instead of using nested Promise.resolve() calls.
+  async function flushPromises() {
+    return Promise.resolve();
+  }
 
   it('initializes with expected values', () => {
     const element = createElement('c-boat-add-review-form', {
@@ -34,7 +42,7 @@ describe('c-boat-add-review-form', () => {
   });
 
   describe('handles form submission', () =>{
-    it('submits with expected values', () => {
+    it('submits with expected values', async () => {
       const element = createElement('c-boat-add-review-form', {
         is: BoatAddReviewForm
       });
@@ -51,27 +59,32 @@ describe('c-boat-add-review-form', () => {
       // dispatch event to indicate rating selected
       const expectedRating = 4
       rating.dispatchEvent(new CustomEvent('ratingchange', { detail: { rating: expectedRating } }));
-      return Promise.resolve().then(() => {
-        recordForm.dispatchEvent(new CustomEvent('submit', {
-          detail: {
-            fields: {
-              Name: expectedName,
-              Comment__c: expectedComment
-            }
-          }
-        }));
-        return Promise.resolve();
-      }).then(() =>{
-        expect(formSubmit).toBeCalledWith(
-          {
+
+      // await promise resolution
+      await flushPromises();
+
+      recordForm.dispatchEvent(new CustomEvent('submit', {
+        detail: {
+          fields: {
             Name: expectedName,
-            Comment__c: expectedComment,
-            Rating__c: expectedRating,
-            Boat__c: BOAT_ID}
-        );
-      });
+            Comment__c: expectedComment
+          }
+        }
+      }));
+
+      // await promise resolution
+      await flushPromises();
+
+      expect(formSubmit).toHaveBeenCalledWith(
+        {
+          Name: expectedName,
+          Comment__c: expectedComment,
+          Rating__c: expectedRating,
+          Boat__c: BOAT_ID}
+      );
     });
-    it('handles success and resets', () => {
+
+    it('handles success and resets', async () => {
       const element = createElement('c-boat-add-review-form', {
         is: BoatAddReviewForm
       });
@@ -99,20 +112,22 @@ describe('c-boat-add-review-form', () => {
       const expectedComment = 'This boat is <em>awesome</em>!';
       nameField.value = expectedName;
       commentsField.value = expectedComment;
-      return Promise.resolve().then(() => {
-        expect(nameField.value).toBe(expectedName);
-        expect(commentsField.value).toBe(expectedComment);
-        expect(rating.value).toBe(4);
-        recordForm.dispatchEvent(new CustomEvent('success'));
-        return Promise.resolve();
-      }).then(() =>{
-        return Promise.resolve();
-      }).then(() => {
-        expect(nameReset).toBeCalled();
-        expect(commentsReset).toBeCalled();
-        expect(rating.value).toBe(0);
-        expect(correctToast).toBe(true);
-      });
+
+      // await promise resolution
+      await flushPromises();
+
+      expect(nameField.value).toBe(expectedName);
+      expect(commentsField.value).toBe(expectedComment);
+      expect(rating.value).toBe(4);
+      recordForm.dispatchEvent(new CustomEvent('success'));
+
+      // await promise resolution
+      await flushPromises();
+
+      expect(nameReset).toHaveBeenCalled();
+      expect(commentsReset).toHaveBeenCalled();
+      expect(rating.value).toBe(0);
+      expect(correctToast).toBe(true);
     });
   });
 

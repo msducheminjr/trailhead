@@ -1,6 +1,5 @@
 import { createElement } from 'lwc';
-// use relative path becase c/fiveStarRating is mocked in module name mapper
-import FiveStarRating from '../fiveStarRating';
+import FiveStarRating from 'c/fiveStarRating';
 import { ShowToastEventName } from 'lightning/platformShowToastEvent';
 
 let mockScriptSuccess = true;
@@ -13,9 +12,16 @@ const mockLoadScriptError = {
   statusText: 'Internal server error'
 };
 
+// create mockFiveStar constant
+const mockFiveStar = jest.fn(() => {
+  return {
+    setRating: jest.fn(),
+    getRating: jest.fn()
+  }
+});
+
 // NOTE: This test is dependent upon having the fivestar static resource in the
 //       staticresources folder of the sfdx directory.
-
 jest.mock(
   'lightning/platformResourceLoader',
   () => {
@@ -27,7 +33,7 @@ jest.mock(
           if (!mockScriptSuccess) {
             reject(mockLoadScriptError);
           } else {
-            require('../../../staticresources/fivestar/rating.js');
+            global.rating = mockFiveStar;
             resolve();
           }
         });
@@ -47,7 +53,6 @@ jest.mock(
   },
   { virtual: true }
 );
-
 describe('c-five-star-rating', () => {
   afterEach(() => {
     // The jsdom instance is shared across test cases in a single file so reset the DOM
@@ -59,16 +64,18 @@ describe('c-five-star-rating', () => {
     mockStyleSuccess = true;
   });
 
+  // Helper function to resolve promises instead of using nested Promise.resolve() calls.
+  async function flushPromises() {
+    return Promise.resolve();
+  }
+
   describe('starClass', () => {
-    it('has correct classs if read-only', () => {
+    it('has correct class if read-only', () => {
       const element = createElement('c-five-star-rating', {
         is: FiveStarRating
       });
       element.readOnly = true;
       element.value = 2;
-      element.initializeRating = jest.fn();
-      element.loadScript = jest.fn();
-      element.isRendered = true;
       document.body.appendChild(element);
       const starList = element.shadowRoot.querySelector('ul');
       expect(starList.classList.length).toBe(2);
@@ -82,9 +89,6 @@ describe('c-five-star-rating', () => {
         is: FiveStarRating
       });
       element.readOnly = false;
-      element.isRendered = true;
-      element.initializeRating = jest.fn();
-      element.loadScript = jest.fn();
       document.body.appendChild(element);
       const starList = element.shadowRoot.querySelector('ul');
       expect(starList.classList.length).toBe(1);
@@ -93,7 +97,7 @@ describe('c-five-star-rating', () => {
   });
 
   describe('error handling', () =>{
-    it('dispatches the error toast if script fails to load', () => {
+    it('dispatches the error toast if script fails to load', async () => {
       mockScriptSuccess = false;
       const element = createElement('c-five-star-rating', {
         is: FiveStarRating
@@ -106,17 +110,14 @@ describe('c-five-star-rating', () => {
         expect(event.detail.variant).toBe('error');
         correctToast = true;
       });
-      // need to chain multiple levels of promise to wait for the toast to show up
-      return Promise.resolve().then(() => {
-        return Promise.resolve();
-      }).then(() => {
-        return Promise.resolve();
-      }).then(() => {
-        expect(correctToast).toBe(true);
-      });
+
+      // await promise resolution
+      await flushPromises();
+
+      expect(correctToast).toBe(true);
     });
 
-    it('dispatches the error toast if styles fail to load', () => {
+    it('dispatches the error toast if styles fail to load', async () => {
       mockStyleSuccess = false;
       const element = createElement('c-five-star-rating', {
         is: FiveStarRating
@@ -129,14 +130,11 @@ describe('c-five-star-rating', () => {
         expect(event.detail.variant).toBe('error');
         correctToast = true;
       });
-      // need to chain multiple levels of promise to wait for the toast to show up
-      return Promise.resolve().then(() => {
-        return Promise.resolve();
-      }).then(() => {
-        return Promise.resolve();
-      }).then(() => {
-        expect(correctToast).toBe(true);
-      });
+
+      // await promise resolution
+      await flushPromises();
+
+      expect(correctToast).toBe(true);
     });
   });
 });

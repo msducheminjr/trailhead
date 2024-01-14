@@ -17,6 +17,7 @@ const boatObject = {
 const otherId = 'a025e000003AQaYAAW';
 const TILE_WRAPPER_SELECTED_CLASS = 'tile-wrapper selected';
 const TILE_WRAPPER_UNSELECTED_CLASS = 'tile-wrapper';
+
 describe('c-boat-tile', () => {
   afterEach(() => {
     // The jsdom instance is shared across test cases in a single file so reset the DOM
@@ -24,6 +25,12 @@ describe('c-boat-tile', () => {
       document.body.removeChild(document.body.firstChild);
     }
   });
+
+  // Helper function to resolve promises instead of using nested Promise.resolve() calls.
+  async function flushPromises() {
+    return Promise.resolve();
+  }
+
   describe('classes and markup', () => {
     it('has expected classes if selected boat matches', () => {
       const element = createElement('c-boat-tile', {
@@ -40,6 +47,7 @@ describe('c-boat-tile', () => {
       expect(boatNameHeader.innerHTML).toBe('Gallifrey Falls');
       expect(boatOwnerHeader.innerHTML).toBe('James August');
     });
+
     it('has expected classes if selected boat does not match', () => {
       const element = createElement('c-boat-tile', {
         is: BoatTile
@@ -54,7 +62,7 @@ describe('c-boat-tile', () => {
   });
 
   describe('boat selection', () => {
-    it('dispatches selected event on click', () => {
+    it('dispatches selected event on click', async () => {
       const element = createElement('c-boat-tile', {
         is: BoatTile
 
@@ -70,10 +78,12 @@ describe('c-boat-tile', () => {
       const boatDiv = element.shadowRoot.querySelector('div');
       expect(boatDiv.className).toBe(TILE_WRAPPER_UNSELECTED_CLASS);
       boatDiv.dispatchEvent(new CustomEvent('click'));
-      return Promise.resolve().then(() => {
-        expect(expectedDetail).toBe(true);
-        expect(boatDiv.className).toBe(TILE_WRAPPER_SELECTED_CLASS);
-      });
+
+      // await promise resolution
+      await flushPromises();
+
+      expect(expectedDetail).toBe(true);
+      expect(boatDiv.className).toBe(TILE_WRAPPER_SELECTED_CLASS);
     });
   });
 });
