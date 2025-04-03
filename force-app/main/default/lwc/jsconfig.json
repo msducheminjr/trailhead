@@ -80,6 +80,9 @@
             ],
             "c/helloWebComponent": [
                 "helloWebComponent/helloWebComponent.js"
+            ],
+            "c/*": [
+                "*"
             ]
         }
     },
