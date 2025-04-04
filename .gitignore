@@ -4,6 +4,7 @@
 
 # Salesforce cache
 .sfdx/
+.sf/
 
 # Logs
 logs
@@ -32,3 +33,6 @@ $RECYCLE.BIN/
 
 # Ignore Jest coverage
 coverage/
+
+# Ignore .localdevserver
+.localdevserver/
